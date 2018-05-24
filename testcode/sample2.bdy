@@ -21,13 +21,14 @@ CREATE OR REPLACE PACKAGE BODY emp_admin AS
    END hire_employee;
    PROCEDURE fire_employee (emp_id NUMBER) IS
    BEGIN
-      DELETE FROM employees WHERE employee_id = emp_id;
+      DELETE FROM employees WHERE employee_id = emp_id and rownum = 1;
    END fire_employee;
    PROCEDURE fire_employee (emp_email VARCHAR2) IS
    BEGIN
-      DELETE FROM employees WHERE email = emp_email;
+      DELETE FROM employees WHERE email = emp_email and rownum = 1;
    END fire_employee;
   -- Define local function, available only inside package
+  -- Define local function 12
    FUNCTION sal_ok (jobid VARCHAR2, sal NUMBER) RETURN BOOLEAN IS
       min_sal NUMBER;
       max_sal NUMBER;
