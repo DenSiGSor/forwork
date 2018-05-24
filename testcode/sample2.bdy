@@ -32,6 +32,7 @@ CREATE OR REPLACE PACKAGE BODY emp_admin AS
    END fire_employee;
 
   -- Define local function, available only inside package
+  --Тест коДровки
   -- Define local function 12
    FUNCTION sal_ok (jobid VARCHAR2, sal NUMBER) RETURN BOOLEAN IS
       min_sal NUMBER;

@@ -1,4 +1,5 @@
 -- available online in file 'sample1'
+--тест кодировки 2
 DECLARE
    x NUMBER := 100;
 BEGIN
