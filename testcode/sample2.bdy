@@ -3,6 +3,7 @@ CREATE OR REPLACE PACKAGE BODY emp_admin AS
 -- Fully define cursor specified in package
    CURSOR desc_salary RETURN EmpRecTyp IS
       SELECT employee_id, salary FROM employees ORDER BY salary DESC;
+
 -- Fully define subprograms specified in package
    FUNCTION hire_employee (last_name VARCHAR2, first_name VARCHAR2, 
      email VARCHAR2, phone_number VARCHAR2, job_id VARCHAR2, salary NUMBER,
@@ -19,14 +20,17 @@ CREATE OR REPLACE PACKAGE BODY emp_admin AS
                            || TO_CHAR(number_hired) );   
       RETURN new_emp_id;
    END hire_employee;
+
    PROCEDURE fire_employee (emp_id NUMBER) IS
    BEGIN
       DELETE FROM employees WHERE employee_id = emp_id;
    END fire_employee;
+
    PROCEDURE fire_employee (emp_email VARCHAR2) IS
    BEGIN
       DELETE FROM employees WHERE email = emp_email;
    END fire_employee;
+
   -- Define local function, available only inside package
    FUNCTION sal_ok (jobid VARCHAR2, sal NUMBER) RETURN BOOLEAN IS
       min_sal NUMBER;
@@ -36,6 +40,7 @@ CREATE OR REPLACE PACKAGE BODY emp_admin AS
          WHERE job_id = jobid;
       RETURN (sal >= min_sal) AND (sal <= max_sal);
    END sal_ok;
+
    PROCEDURE raise_salary (emp_id NUMBER, amount NUMBER) IS
       sal NUMBER(8,2);
       jobid VARCHAR2(10);
@@ -51,6 +56,7 @@ CREATE OR REPLACE PACKAGE BODY emp_admin AS
      WHEN invalid_salary THEN
        DBMS_OUTPUT.PUT_LINE('The salary is out of the specified range.');
    END raise_salary;
+
    FUNCTION nth_highest_salary (n NUMBER) RETURN EmpRecTyp IS
       emp_rec EmpRecTyp;
    BEGIN
@@ -61,6 +67,7 @@ CREATE OR REPLACE PACKAGE BODY emp_admin AS
       CLOSE desc_salary;
       RETURN emp_rec;
    END nth_highest_salary;
+
 BEGIN  -- initialization part starts here
    INSERT INTO emp_audit VALUES (SYSDATE, USER, 'EMP_ADMIN');
    number_hired := 0;
